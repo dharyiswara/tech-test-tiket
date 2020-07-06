@@ -11,6 +11,8 @@ sealed class ApiResponse<T> {
                 val body = response.body()
                 if (body == null || response.code() == 204 || response.code() == 404) {
                     ApiEmptyResponse()
+                } else if (response.code() == 403) {
+                    ApiLimitResponse()
                 } else {
                     ApiSuccessResponse(body)
                 }
@@ -33,3 +35,5 @@ class ApiEmptyResponse<T> : ApiResponse<T>()
 data class ApiErrorResponse<T>(val errorCode: Int, val error: Throwable) : ApiResponse<T>()
 
 data class ApiSuccessResponse<T>(val body: T) : ApiResponse<T>()
+
+class ApiLimitResponse<T> : ApiResponse<T>()

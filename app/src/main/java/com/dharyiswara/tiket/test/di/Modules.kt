@@ -2,6 +2,8 @@ package com.dharyiswara.tiket.test.di
 
 import com.dharyiswara.tiket.test.helper.AppExecutors
 import com.dharyiswara.tiket.test.network.NetworkFactory
+import com.dharyiswara.tiket.test.repository.UserRepository
+import com.dharyiswara.tiket.test.ui.MainViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -20,9 +22,13 @@ val networkModule = module {
 
 val repositoryModule = module {
 
+    single { UserRepository(get(), get()) }
+
 }
 
 val viewModelModule = module {
+
+    viewModel { MainViewModel(get()) }
 
 }
 

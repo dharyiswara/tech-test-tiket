@@ -61,6 +61,11 @@ abstract class BaseRepository<Type>(
                         setValue(Resource.empty())
                     }
                 }
+                is ApiLimitResponse -> {
+                    appExecutors.mainThread().execute {
+                        setValue(Resource.limit())
+                    }
+                }
                 is ApiErrorResponse -> {
                     appExecutors.mainThread().execute {
                         // reload from disk whatever we had
@@ -75,7 +80,8 @@ abstract class BaseRepository<Type>(
 
     @WorkerThread
     protected open fun processResponse(
-        response: ApiSuccessResponse<Type>) = response.body
+        response: ApiSuccessResponse<Type>
+    ) = response.body
 
     @WorkerThread
     protected abstract fun saveFromNetwork(item: Type)

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Technical Test Tiket.com</string>
+    <string name="text_title_toolbar">Github User Finder</string>
+    <string name="hint_search_user">Search User</string>
+    <string name="label_search">Search</string>
+    <string name="label_empty_user">User Not Found</string>
 </resources>

@@ -12,7 +12,7 @@ interface NetworkService {
     fun getUsers(
         @Query("q") query: String,
         @Query("page") page: Int,
-        @Query("limit") limit: Int
+        @Query("per_page") limit: Int
     ): LiveData<ApiResponse<UserResult>>
 
 }
