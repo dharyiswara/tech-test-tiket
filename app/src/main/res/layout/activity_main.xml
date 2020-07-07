@@ -30,11 +30,14 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSearch"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bg_btn_solid"
             android:text="@string/label_search"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="@id/etSearchUser"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/etSearchUser" />
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nsListUser"

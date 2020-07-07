@@ -11,16 +11,17 @@ sealed class ApiResponse<T> {
                 val body = response.body()
                 if (body == null || response.code() == 204 || response.code() == 404) {
                     ApiEmptyResponse()
-                } else if (response.code() == 403) {
-                    ApiLimitResponse()
                 } else {
                     ApiSuccessResponse(body)
                 }
             } else {
-                ApiErrorResponse(
-                    response.code(),
-                    RuntimeException(response.message())
-                )
+                if (response.code() == 403)
+                    ApiLimitResponse()
+                else
+                    ApiErrorResponse(
+                        response.code(),
+                        RuntimeException(response.message())
+                    )
             }
         }
 

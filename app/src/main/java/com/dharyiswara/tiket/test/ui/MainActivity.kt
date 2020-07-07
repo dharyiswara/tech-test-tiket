@@ -1,6 +1,5 @@
 package com.dharyiswara.tiket.test.ui
 
-import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.Observer
@@ -47,7 +46,9 @@ class MainActivity : BaseActivity() {
         super.initEvent()
 
         btnSearch.setOnClickListener {
-            startSearchUser()
+            if (etSearchUser.text.toString().isNotEmpty())
+                startSearchUser()
+            else toast(getString(R.string.text_error_empty_search))
         }
 
         nsListUser.setOnScrollChangeListener(
@@ -62,11 +63,11 @@ class MainActivity : BaseActivity() {
             })
 
         etSearchUser.setOnEditorActionListener { v, actionId, _ ->
+            v.hideKeyboard()
+            v.clearFocus()
             if (actionId == EditorInfo.IME_ACTION_SEARCH && etSearchUser.text.toString().isNotEmpty()) {
-                v.hideKeyboard()
-                v.clearFocus()
                 startSearchUser()
-            }
+            } else toast(getString(R.string.text_error_empty_search))
             return@setOnEditorActionListener false
         }
     }
@@ -95,14 +96,21 @@ class MainActivity : BaseActivity() {
                         getUserSuccess(result)
                     }
                 }
-                Status.LIMIT -> toast("Limit")
+                Status.LIMIT -> {
+                    hideLoading()
+                    toast(getString(R.string.text_limit_try_again))
+                }
                 Status.EMPTY -> {
                     hideLoading()
                     showUserNotFound()
                 }
+                Status.NETWORK_ERROR -> {
+                    hideLoading()
+                    toast(getString(R.string.text_check_connection))
+                }
                 Status.ERROR -> {
                     hideLoading()
-                    it.throwable?.printStackTrace()
+                    toast(getString(R.string.text_try_again))
                 }
             }
         })

@@ -5,6 +5,7 @@ import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.dharyiswara.tiket.test.helper.*
+import java.io.IOException
 
 abstract class BaseRepository<Type>(
     private val appExecutors: AppExecutors
@@ -69,7 +70,10 @@ abstract class BaseRepository<Type>(
                 is ApiErrorResponse -> {
                     appExecutors.mainThread().execute {
                         // reload from disk whatever we had
-                        setValue(Resource.error(response.error))
+                        when {
+                            response.error is IOException -> setValue(Resource.networkError(response.error))
+                            else -> setValue(Resource.error(response.error))
+                        }
                     }
                 }
             }

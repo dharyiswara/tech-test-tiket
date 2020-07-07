@@ -4,4 +4,8 @@
     <string name="hint_search_user">Search User</string>
     <string name="label_search">Search</string>
     <string name="label_empty_user">User Not Found</string>
+    <string name="text_limit_try_again">Please try again in 1 minute</string>
+    <string name="text_try_again">Something wrong, Please try again</string>
+    <string name="text_check_connection">Please check your connection and try again</string>
+    <string name="text_error_empty_search">Please fill search box to find user</string>
 </resources>

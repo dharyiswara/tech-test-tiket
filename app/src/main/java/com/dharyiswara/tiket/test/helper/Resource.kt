@@ -23,6 +23,10 @@ data class Resource<out T>(
             return Resource(Status.EMPTY, null, null)
         }
 
+        fun <T> networkError(throwable: Throwable? = null): Resource<T> {
+            return Resource(Status.NETWORK_ERROR, null, throwable)
+        }
+
         fun <T> error(throwable: Throwable? = null): Resource<T> {
             return Resource(Status.ERROR, null, throwable)
         }
